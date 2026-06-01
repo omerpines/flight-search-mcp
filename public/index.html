@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Search</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="logo">✈ FlightSearch</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Search card ── -->
+    <section class="search-section">
+      <div class="search-card">
+        <div class="trip-toggle">
+          <label class="toggle-btn">
+            <input type="radio" name="trip-type" value="oneway" checked /> One-way
+          </label>
+          <label class="toggle-btn">
+            <input type="radio" name="trip-type" value="roundtrip" /> Round-trip
+          </label>
+        </div>
+
+        <div class="route-row">
+          <div class="field-wrap">
+            <label for="origin">From</label>
+            <input id="origin" type="text" placeholder="e.g. TLV" maxlength="3" autocomplete="off" />
+          </div>
+          <button class="swap-btn" id="swap-btn" title="Swap airports">⇄</button>
+          <div class="field-wrap">
+            <label for="destination">To</label>
+            <input id="destination" type="text" placeholder="e.g. JFK" maxlength="3" autocomplete="off" />
+          </div>
+          <div class="field-wrap">
+            <label for="departure-date">Depart</label>
+            <input id="departure-date" type="date" />
+          </div>
+          <div class="field-wrap" id="return-date-wrap" hidden>
+            <label for="return-date">Return</label>
+            <input id="return-date" type="date" />
+          </div>
+        </div>
+
+        <div class="pax-row">
+          <div class="field-wrap pax-field">
+            <label for="adults">Adults</label>
+            <div class="counter">
+              <button class="counter-btn" id="adults-dec">−</button>
+              <span id="adults-val">1</span>
+              <button class="counter-btn" id="adults-inc">+</button>
+              <input type="hidden" id="adults" value="1" />
+            </div>
+          </div>
+          <div class="field-wrap">
+            <label for="travel-class">Class</label>
+            <select id="travel-class">
+              <option value="ECONOMY">Economy</option>
+              <option value="PREMIUM_ECONOMY">Premium Economy</option>
+              <option value="BUSINESS">Business</option>
+              <option value="FIRST">First</option>
+            </select>
+          </div>
+          <div class="field-wrap">
+            <label for="priority">Optimise for</label>
+            <select id="priority">
+              <option value="balanced">Balanced</option>
+              <option value="price">Cheapest</option>
+              <option value="duration">Fastest</option>
+              <option value="stops">Fewest stops</option>
+            </select>
+          </div>
+          <label class="nonstop-label">
+            <input type="checkbox" id="nonstop" /> Non-stop only
+          </label>
+        </div>
+
+        <div class="search-actions">
+          <button class="btn btn-secondary" id="search-btn">Search flights</button>
+          <button class="btn btn-primary" id="best-btn">✦ Best deal</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Results ── -->
+    <section class="results-section" id="results-section" hidden>
+      <div id="results-header" class="results-header"></div>
+      <div id="flight-list" class="flight-list"></div>
+    </section>
+  </main>
+
+  <!-- ── Details modal ── -->
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ── Loading ── -->
+  <div class="loading-overlay" id="loading-overlay" hidden>
+    <div class="spinner"></div>
+    <p>Searching flights…</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
