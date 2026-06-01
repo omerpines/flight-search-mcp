@@ -1,8 +1,8 @@
 /* ── Variables ── */
 :root {
-  --primary: #1a73e8;
-  --primary-dark: #1557b0;
-  --primary-light: #e8f0fe;
+  --primary: #ea580c;
+  --primary-dark: #c2410c;
+  --primary-light: #fff7ed;
   --success: #1e8e3e;
   --success-bg: #e6f4ea;
   --warning: #e37400;
@@ -27,13 +27,14 @@ input, select { font: inherit; }
 
 /* ── Header ── */
 .site-header {
-  background: linear-gradient(135deg, #0d47a1 0%, #1565c0 60%, #1e88e5 100%);
+  background: linear-gradient(135deg, #1c0a00 0%, #7c2d12 55%, #ea580c 100%);
   color: #fff;
-  padding: 14px 24px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
 }
 .header-inner { max-width: 960px; margin: 0 auto; }
-.logo { font-size: 1.25rem; font-weight: 700; letter-spacing: .5px; }
+.logo { font-size: 1.3rem; font-weight: 700; letter-spacing: .3px; }
+.logo-sub { font-size: .8rem; opacity: .75; margin-top: 2px; font-weight: 400; letter-spacing: .3px; }
 
 /* ── Main layout ── */
 main { max-width: 960px; margin: 0 auto; padding: 28px 16px 60px; }
@@ -164,11 +165,11 @@ main { max-width: 960px; margin: 0 auto; padding: 28px 16px 60px; }
 }
 .btn-secondary:hover { background: var(--primary-light); }
 .btn-primary {
-  background: linear-gradient(135deg, #1a73e8, #1557b0);
+  background: linear-gradient(135deg, #ea580c, #c2410c);
   color: #fff;
-  box-shadow: 0 2px 6px rgba(26,115,232,.35);
+  box-shadow: 0 2px 6px rgba(234,88,12,.4);
 }
-.btn-primary:hover { box-shadow: 0 4px 12px rgba(26,115,232,.45); transform: translateY(-1px); }
+.btn-primary:hover { box-shadow: 0 4px 12px rgba(234,88,12,.5); transform: translateY(-1px); }
 
 /* ── Results ── */
 .results-header {

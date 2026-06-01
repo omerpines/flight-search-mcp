@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flight Search</title>
+  <title>Shimon's Burning Man Flights</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header class="site-header">
     <div class="header-inner">
-      <span class="logo">✈ FlightSearch</span>
+      <div class="logo">🔥 Shimon's Burning Man 2026</div>
+      <div class="logo-sub">TLV → The Playa · Round-trip flights</div>
     </div>
   </header>
 
@@ -18,30 +19,32 @@
     <!-- ── Search card ── -->
     <section class="search-section">
       <div class="search-card">
-        <div class="trip-toggle">
-          <label class="toggle-btn">
-            <input type="radio" name="trip-type" value="oneway" checked /> One-way
-          </label>
-          <label class="toggle-btn">
-            <input type="radio" name="trip-type" value="roundtrip" /> Round-trip
-          </label>
-        </div>
 
         <div class="route-row">
           <div class="field-wrap">
             <label for="origin">From</label>
-            <input id="origin" type="text" placeholder="e.g. TLV" maxlength="3" autocomplete="off" />
+            <input id="origin" type="text" value="TLV" maxlength="3" autocomplete="off" />
           </div>
+
           <button class="swap-btn" id="swap-btn" title="Swap airports">⇄</button>
+
           <div class="field-wrap">
-            <label for="destination">To</label>
-            <input id="destination" type="text" placeholder="e.g. JFK" maxlength="3" autocomplete="off" />
+            <label for="destination">To (near Burning Man)</label>
+            <select id="destination">
+              <option value="RNO">RNO — Reno-Tahoe (closest, ~100 mi)</option>
+              <option value="SFO">SFO — San Francisco (~200 mi)</option>
+              <option value="OAK">OAK — Oakland (~190 mi)</option>
+              <option value="SMF">SMF — Sacramento (~130 mi)</option>
+              <option value="LAS">LAS — Las Vegas (~280 mi)</option>
+            </select>
           </div>
+
           <div class="field-wrap">
             <label for="departure-date">Depart</label>
             <input id="departure-date" type="date" />
           </div>
-          <div class="field-wrap" id="return-date-wrap" hidden>
+
+          <div class="field-wrap">
             <label for="return-date">Return</label>
             <input id="return-date" type="date" />
           </div>
@@ -82,7 +85,7 @@
 
         <div class="search-actions">
           <button class="btn btn-secondary" id="search-btn">Search flights</button>
-          <button class="btn btn-primary" id="best-btn">✦ Best deal</button>
+          <button class="btn btn-primary" id="best-btn">🔥 Best deal</button>
         </div>
       </div>
     </section>

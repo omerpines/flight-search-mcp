@@ -24,31 +24,27 @@ async function fetchAPI(endpoint, body) {
 }
 
 // ── Form helpers ───────────────────────────────────────────────────────────
-function isRoundTrip() {
-  return document.querySelector('input[name="trip-type"]:checked').value === 'roundtrip';
-}
-
+// Always round-trip — one-way removed
 function getParams() {
-  const origin = $('origin').value.trim().toUpperCase();
-  const destination = $('destination').value.trim().toUpperCase();
+  const origin      = $('origin').value.trim().toUpperCase();
+  const destination = $('destination').value; // select element
   const departureDate = $('departure-date').value;
-  const returnDate = isRoundTrip() ? $('return-date').value : undefined;
+  const returnDate    = $('return-date').value;
 
   if (!origin || origin.length !== 3) { showToast('Enter a valid 3-letter origin code (e.g. TLV)'); return null; }
-  if (!destination || destination.length !== 3) { showToast('Enter a valid 3-letter destination code (e.g. JFK)'); return null; }
   if (!departureDate) { showToast('Please select a departure date'); return null; }
-  if (isRoundTrip() && !returnDate) { showToast('Please select a return date'); return null; }
+  if (!returnDate)    { showToast('Please select a return date'); return null; }
 
   return {
     origin,
     destination,
     departureDate,
     returnDate,
-    adults: state.adults,
+    adults:      state.adults,
     travelClass: $('travel-class').value,
-    nonStop: $('nonstop').checked,
-    priority: $('priority').value,
-    maxResults: 15,
+    nonStop:     $('nonstop').checked,
+    priority:    $('priority').value,
+    maxResults:  15,
   };
 }
 
@@ -386,23 +382,16 @@ function showToast(msg) {
 
 // ── Event wiring ────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Set min date to today
-  const today = new Date().toISOString().split('T')[0];
-  $('departure-date').min = today;
-  $('return-date').min = today;
+  // Burning Man 2026 defaults: depart 10 days before Aug 30, return day after Sep 7
+  $('departure-date').value = '2026-08-20';
+  $('return-date').value    = '2026-09-08';
+  $('departure-date').min   = new Date().toISOString().split('T')[0];
+  $('return-date').min      = '2026-08-20';
 
-  // Trip type toggle
-  document.querySelectorAll('input[name="trip-type"]').forEach(r => {
-    r.addEventListener('change', () => {
-      if (isRoundTrip()) show($('return-date-wrap'));
-      else hide($('return-date-wrap'));
-    });
-  });
-
-  // Departure date → update return min
+  // Departure date → keep return min in sync
   $('departure-date').addEventListener('change', () => {
     $('return-date').min = $('departure-date').value;
-    if ($('return-date').value && $('return-date').value < $('departure-date').value) {
+    if ($('return-date').value < $('departure-date').value) {
       $('return-date').value = $('departure-date').value;
     }
   });
@@ -415,16 +404,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.adults < 9) { state.adults++; $('adults-val').textContent = state.adults; $('adults').value = state.adults; }
   });
 
-  // Swap airports
+  // Swap origin ↔ destination (swaps origin text with selected option value)
   $('swap-btn').addEventListener('click', () => {
-    const o = $('origin').value, d = $('destination').value;
-    $('origin').value = d; $('destination').value = o;
+    const originEl = $('origin');
+    const destEl   = $('destination');
+    const prevOrigin = originEl.value;
+    // Set origin to the currently selected destination code
+    originEl.value = destEl.value;
+    // Try to select the old origin in the destination dropdown; fallback to RNO
+    const match = Array.from(destEl.options).find(o => o.value === prevOrigin);
+    if (match) match.selected = true;
   });
 
-  // Uppercase origin/destination
-  ['origin', 'destination'].forEach(id => {
-    $(id).addEventListener('input', () => { $(id).value = $(id).value.toUpperCase(); });
-  });
+  // Uppercase origin only (destination is a select)
+  $('origin').addEventListener('input', () => { $('origin').value = $('origin').value.toUpperCase(); });
 
   // Buttons
   $('search-btn').addEventListener('click', doSearch);
